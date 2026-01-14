@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Job-Dhundo - Signup{% endblock title %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <div class="card p-4" style="width: 360px; border-radius:28px; border:2px solid #19a974; box-shadow:0 14px 34px rgba(0,0,0,0.12);">
+
+        <div class="text-center mb-3">
+            <span class="brand-font">Job<span class="brand-highlight">Dhundo</span></span>
+        </div>
+
+        <h4 class="text-center fw-bold mb-1">Join Us!</h4>
+        <h5 class="text-center mb-4">Sign Up</h5>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn w-100 py-2" style="background-color:#19a974; border:none; border-radius:14px; color:white;">Sign Up</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'login' %}" class="text-decoration-none small">Already have an account? Login</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

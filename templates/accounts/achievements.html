@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JobDhundo | Achievements</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --jd-green: #21b07a;
+      --jd-light: #e8fdf5;
+      --jd-accent: #aad4e2;
+    }
+
+    body {
+      background-color: var(--jd-light);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .navbar {
+      background-color: var(--jd-green);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .navbar-brand {
+      color: white;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .add-card {
+      background-color: #ffffff;
+      border: 2px dashed var(--jd-green);
+      color: var(--jd-green);
+      cursor: pointer;
+    }
+
+    .add-card:hover {
+      background-color: #f0fff8;
+    }
+
+    .badge-custom {
+      background-color: var(--jd-green);
+    }
+
+    .form-control:focus {
+      border-color: var(--jd-green);
+      box-shadow: 0 0 0 0.2rem rgba(33,176,122,0.25);
+    }
+
+    .modal-header {
+      background-color: var(--jd-green);
+      color: white;
+    }
+
+    .modal-footer .btn-success {
+      background-color: var(--jd-green);
+      border: none;
+    }
+
+    .modal-footer .btn-success:hover {
+      background-color: #1a8e62;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Responsive Navbar -->
+<nav class="navbar navbar-expand-lg px-4 py-2">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">JobDhundo</a>
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+            Menu
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="/home">Home</a></li>
+            <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container my-5">
+  <div class="mb-4 text-center text-md-start">
+    <h3 class="fw-bold text-success">🏆 My Achievements</h3>
+    <p class="text-muted">Your accomplishments that strengthen your professional profile</p>
+  </div>
+
+  <div class="row g-4" id="achievementList">
+
+    <!-- Sample Achievement Card -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card h-100 p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="fw-semibold mb-0">Certified Web Developer</h5>
+          <span class="badge badge-custom">2025</span>
+        </div>
+        <p class="text-muted">Completed a full-stack development course with distinction from XYZ Academy.</p>
+        <div class="text-end">
+          <button class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip" title="Edit Achievement">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete Achievement">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Achievement Card -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card add-card h-100 text-center p-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#addAchievementModal">
+        <div class="display-5 mb-2">➕</div>
+        <h6 class="fw-semibold">Add Achievement</h6>
+        <p class="text-muted small">Click to add a new milestone</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal: Add Achievement -->
+<div class="modal fade" id="addAchievementModal" tabindex="-1" aria-labelledby="addAchievementModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <form class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAchievementModalLabel">Add New Achievement</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="achievementTitle" class="form-label">Title</label>
+          <input type="text" class="form-control" id="achievementTitle" placeholder="e.g. Certified Data Analyst">
+        </div>
+        <div class="mb-3">
+          <label for="achievementYear" class="form-label">Year</label>
+          <select class="form-select" id="achievementYear">
+            <option selected disabled>Select year</option>
+            <option>2026</option>
+            <option>2025</option>
+            <option>2024</option>
+            <option>2023</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="achievementDesc" class="form-label">Description</label>
+          <textarea class="form-control" id="achievementDesc" rows="3" placeholder="Brief description of your achievement"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="achievementDoc" class="form-label">Upload Certificate or Document</label>
+          <input class="form-control" type="file" id="achievementDoc" accept=".pdf,.doc,.docx,.jpg,.png">
+        </div>
+        <div class="mb-3">
+          <label for="achievementImage" class="form-label">Upload Image</label>
+          <input class="form-control" type="file" id="achievementImage" accept="image/*">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Save Achievement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+</script>
+</body>
+</html>

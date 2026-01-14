@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Job-Dhundo{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #d2efe5; }
+        .brand-font {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 2.2rem !important;
+            letter-spacing: -1.5px;
+            color: #19a974;
+            display: inline-flex;
+            align-items: center;
+        }
+        .brand-highlight {
+            background-color: #19a974;
+            color: white;
+            padding: 0px 14px;
+            border-radius: 12px;
+            margin-left: 6px;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+            transform: rotate(-2deg);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+{% block content %}{% endblock content %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

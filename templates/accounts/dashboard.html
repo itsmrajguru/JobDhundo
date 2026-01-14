@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-4">
+  {% if query %}
+    <h3>Search results for "{{ query }}"</h3>
+  {% else %}
+    <h3>Latest Job Openings</h3>
+  {% endif %}
+
+  {% if jobs %}
+    {% for job in jobs %}
+      <div class="card my-3 p-3">
+        <h5>{{ job.title }}</h5>
+        <p>{{ job.company.display_name }} – {{ job.location.display_name }}</p>
+        <p>{{ job.description|truncatewords:30 }}</p>
+        <a href="{{ job.redirect_url }}" target="_blank" class="btn btn-success">Apply</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No jobs available right now.</p>
+  {% endif %}
+</div>
+{% endblock %}
+

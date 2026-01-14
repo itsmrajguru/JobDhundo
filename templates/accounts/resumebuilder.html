@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job-Dhundo | Resume Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --jd-green: #1db07b;
+            --jd-green-dark: #168a61;
+            --jd-bg-mint: #f0fff9;
+            --jd-dark: #333333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--jd-bg-mint);
+            color: var(--jd-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+        }
+
+        /* DARKER ROAMING BACKGROUND TEXT */
+        .scrolling-bg-text {
+            position: fixed;
+            top: 25%;
+            left: 0;
+            width: 100%;
+            /* Changed color to a much darker, visible green */
+            color: rgba(29, 176, 123, 0.15); 
+            font-size: 4.5rem;
+            font-weight: 800;
+            white-space: nowrap;
+            z-index: -1; 
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .marquee {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Second line for extra coverage */
+        .scrolling-bg-text.lower {
+            top: 60%;
+            color: rgba(29, 176, 123, 0.12);
+            animation-direction: reverse;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header Styling */
+        .navbar-jd {
+            background-color: var(--jd-green);
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand-jd {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        /* Centering Layout */
+        .centered-wrapper {
+            max-width: 1140px;
+            margin: 60px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Card Styles */
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 18px 20px;
+            transition: 0.3s;
+        }
+
+        .list-group-item.active {
+            background-color: var(--jd-bg-mint) !important;
+            color: var(--jd-green) !important;
+            border-left: 6px solid var(--jd-green);
+            font-weight: 600;
+        }
+
+        .resume-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            padding: 45px;
+        }
+
+        /* Form Controls */
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 15px;
+            background-color: #f8fbf9;
+            border: 1px solid #e2e8e5;
+        }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: var(--jd-green);
+            box-shadow: 0 0 0 4px rgba(29, 176, 123, 0.1);
+        }
+
+        /* Action Buttons */
+        .btn-jd-main {
+            background-color: var(--jd-green);
+            color: white;
+            padding: 14px 45px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-jd-main:hover {
+            background-color: var(--jd-green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(29, 176, 123, 0.3);
+            color: white;
+        }
+
+        .photo-box {
+            border: 2px dashed var(--jd-green);
+            border-radius: 20px;
+            height: 190px;
+            background-color: #fdfdfd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .photo-box:hover {
+            background-color: #f0fff9;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scrolling-bg-text">
+        <div class="marquee">
+            ITS AN MANDATORY PROCESS WHICH WILL LEAD TO FIND YOU A SECURE JOB • ITS AN MANDATORY PROCESS WHICH WILL LEAD TO FIND YOU A SECURE JOB •
+        </div>
+    </div>
+
+    <div class="scrolling-bg-text lower">
+        <div class="marquee">
+            SECURE YOUR FUTURE WITH JOB DHUNDO • BUILD A PROFESSIONAL RESUME TODAY • SECURE YOUR FUTURE WITH JOB DHUNDO •
+        </div>
+    </div>
+
+    <nav class="navbar navbar-jd">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a class="navbar-brand-jd" href="#">Job-Dhundo</a>
+                <div class="dropdown">
+                    <button class="btn p-0 text-white border-0 dropdown-toggle" type="button" id="menu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                        <li><a class="dropdown-item py-2" href="#" onclick="history.back()">⬅ Previous Page</a></li>
+                        <li><a class="dropdown-item py-2" href="#">➡ Skip for now</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item py-2 text-danger" href="#" onclick="location.reload()">🗑 Reset Form</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="centered-wrapper">
+        <div class="row g-5 justify-content-center">
+            
+            <div class="col-lg-3">
+                <div class="sidebar list-group shadow-sm">
+                    <a href="#" class="list-group-item active">Contact Details</a>
+                    <a href="#" class="list-group-item">Summary</a>
+                    <a href="#" class="list-group-item">Experience</a>
+                    <a href="#" class="list-group-item">Education</a>
+                    <a href="#" class="list-group-item">Skills</a>
+                </div>
+                <div class="mt-4 p-4 bg-white rounded-4 shadow-sm border-0 text-center">
+                    <h6 class="fw-bold mb-2">Profile Strength</h6>
+                    <div class="progress mb-2" style="height: 10px; border-radius: 10px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 20%; background-color: var(--jd-green);"></div>
+                    </div>
+                    <small class="text-muted">20% Completed</small>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="resume-card">
+                    <div class="mb-5">
+                        <h2 class="fw-900 text-dark mb-2">Contact Information</h2>
+                        <div style="width: 60px; height: 4px; background: var(--jd-green); border-radius: 2px;"></div>
+                    </div>
+
+                    <form id="contactForm">
+                        <div class="row g-4">
+                            <div class="col-md-8">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">First Name</label>
+                                        <input type="text" class="form-control" placeholder="e.g. Rahul">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Last Name</label>
+                                        <input type="text" class="form-control" placeholder="e.g. Sharma">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small fw-bold">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="rahul.sharma@example.com">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label small fw-bold">Phone Number</label>
+                                        <input type="tel" class="form-control" placeholder="+91 98765 43210">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <label class="form-label small fw-bold">Profile Photo</label>
+                                <div class="photo-box" onclick="document.getElementById('fileIn').click()">
+                                    <div id="txt" class="text-center">
+                                        <div class="mb-1">📸</div>
+                                        <span class="text-muted small" style="font-size: 10px;">Upload Image</span>
+                                    </div>
+                                    <img id="prev" style="width:100%; height:100%; object-fit:cover; display:none; border-radius:18px;">
+                                    <input type="file" id="fileIn" hidden accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 d-flex justify-content-between align-items-center">
+                            <button type="button" class="btn btn-jd-main px-5">Continue to Summary</button>
+                            <div class="text-end">
+                                <p class="mb-0 fw-bold text-success" style="font-size: 0.8rem;">Auto-saving...</p>
+                                <span class="text-muted" style="font-size: 0.7rem;">Your data is private & secure</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Image Handling logic
+        document.getElementById('fileIn').onchange = function() {
+            const [file] = this.files;
+            if (file) {
+                document.getElementById('prev').src = URL.createObjectURL(file);
+                document.getElementById('prev').style.display = 'block';
+                document.getElementById('txt').style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

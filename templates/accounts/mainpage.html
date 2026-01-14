@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Job Dhundo | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-green: #1fa971;
+        --dark-green: #168a5d;
+        --light-bg: #f3faf7;
+        --sidebar-bg: #ffffff;
+    }
+
+    body { background: var(--light-bg); font-family: "Segoe UI", sans-serif; }
+
+    /* LOGO STYLING FROM IMAGE */
+    .brand-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+    }
+    .brand-job {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--primary-green);
+    }
+    .brand-dhundo-badge {
+        background-color: var(--primary-green);
+        color: white;
+        padding: 4px 15px;
+        border-radius: 12px;
+        font-size: 26px;
+        font-weight: 800;
+        /* Matches the slight tilt in your image */
+        transform: rotate(-2deg); 
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* NAVBAR STYLES */
+    .jd-navbar { 
+        background: white; 
+        padding: 10px 25px; 
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05); 
+    }
+    .jd-search { 
+        width: 380px; 
+        border-radius: 12px; 
+        padding-left: 45px; 
+        background: #f1f3f4; 
+        border: 1px solid transparent;
+        transition: 0.3s;
+    }
+    .jd-search:focus { background: white; border-color: var(--primary-green); box-shadow: none; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #777; z-index: 5; }
+    
+    .nav-icon { color: #555; font-size: 20px; margin-left: 20px; cursor: pointer; }
+    .profile-circle-nav { 
+        width: 38px; height: 38px; 
+        background: var(--primary-green); 
+        color: white; border-radius: 50%; 
+        display: flex; align-items: center; justify-content: center; 
+        font-weight: bold; margin-left: 20px; 
+    }
+
+    /* SIDEBAR STYLISH BUTTONS */
+    .sidebar { 
+        min-height: 100vh; 
+        background: var(--sidebar-bg); 
+        padding: 25px 15px; 
+        border-right: 1px solid #e0edec;
+    }
+    .sidebar-btn { 
+        background: transparent; 
+        color: #444; 
+        border: none; 
+        border-radius: 12px; 
+        padding: 12px 18px; 
+        width: 100%; 
+        margin-bottom: 10px; 
+        text-align: left; 
+        font-size: 15px; 
+        font-weight: 500;
+        display: flex; 
+        align-items: center; 
+        gap: 12px; 
+        transition: all 0.2s ease;
+    }
+    .sidebar-btn:hover { 
+        background: #e9f7f1; 
+        color: var(--dark-green); 
+        padding-left: 22px;
+    }
+    .sidebar-btn i { font-size: 1.1rem; }
+    
+    .sidebar-btn.logout { 
+        background: #fff1f0; 
+        color: #e74c3c; 
+        margin-top: 30px; 
+        justify-content: center;
+    }
+    .sidebar-btn.logout:hover { background: #ffd8d6; }
+
+    @media(max-width:768px){
+        .jd-search { width: 100%; margin-top: 15px; }
+        .brand-dhundo-badge { font-size: 20px; }
+        .brand-job { font-size: 20px; }
+    }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg jd-navbar sticky-top">
+  <div class="container-fluid">
+    <a class="brand-container" href="#">
+      <span class="brand-job">Job</span>
+      <span class="brand-dhundo-badge">Dhundo</span>
+    </a>
+
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#jdNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="jdNav">
+
+      <!-- ✅ Single functional search form -->
+    <form action="{% url 'mainpage' %}" method="get" class="mx-auto position-relative d-flex">
+    <i class="bi bi-search search-icon"></i>
+    <input type="text" name="q" class="form-control jd-search" placeholder="Search jobs, skills, companies">
+    <button type="submit" class="btn btn-success ms-2">Search</button>
+    </form>
+
+
+
+
+      <div class="d-flex align-items-center">
+        <i class="bi bi-bell nav-icon"></i>
+        <div class="profile-circle-nav">
+          {{ request.user.username|slice:":2"|upper }}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+
+    <div class="col-lg-2 col-md-3 sidebar">
+
+
+
+        <a href="{% url 'edit_profile' %}" class="sidebar-btn">
+            <i class="bi bi-person"></i> My Profile
+        </a>
+
+        
+        <button class="sidebar-btn"><i class="bi bi-briefcase"></i> My Jobs</button>
+
+        <a href="{% url 'resumebuilder' %}" class="sidebar-btn">
+            <i class="bi bi-file-earmark-text"></i> Resume Builder
+        </a>
+
+        <a href="{% url 'messages' %}" class="sidebar-btn">
+            <i class="bi bi-chat-dots"></i> Messages
+        </a>
+
+        <a href="{% url 'achievements' %}" class="sidebar-btn">
+        <i class="bi bi-trophy"></i> Achievements
+        </a>
+
+        
+        <button class="sidebar-btn logout"><i class="bi bi-box-arrow-right"></i> Logout</button>
+    </div>
+
+    <div class="col-lg-10 col-md-9 p-4">
+
+        <!-- Dashboard header -->
+        <div class="alert alert-light border-0 shadow-sm rounded-4 p-4 mb-4">
+            {% if query %}
+                <h4 class="text-dark">Search results for "{{ query }}"</h4>
+                <p class="text-muted">Showing jobs based on your search.</p>
+            {% else %}
+                <h4 class="text-dark">Latest Job Openings</h4>
+                <p class="text-muted">Here are the most recent jobs available.</p>
+            {% endif %}
+        </div>
+
+        <!--Lob listings-->
+        <div class="row">
+  {% for job in jobs %}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ job.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ job.company.display_name }} – {{ job.location.display_name }}
+          </h6>
+          <span class="badge bg-success">
+            ₹{{ job.salary_min|default:"-" }} – ₹{{ job.salary_max|default:"-" }}
+          </span>
+          <span class="badge bg-info text-dark">{{ job.contract_type|default:"N/A"|title }}</span>
+          <span class="badge bg-primary">{{ job.contract_time|default:"N/A"|title }}</span>
+          <p class="card-text mt-2">{{ job.description|truncatewords:15 }}…</p>
+          <a href="{{ job.redirect_url }}" target="_blank" class="btn btn-success w-100">Apply</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No jobs available right now.</p>
+  {% endfor %}
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

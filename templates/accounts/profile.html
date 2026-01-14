@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | Job-Dhundo{% endblock %}
+
+{% block content %}
+<style>
+    .profile-wrapper {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    .profile-header {
+        background: linear-gradient(135deg, #19a974, #0f766e);
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem 1rem 0 0;
+        text-align: center;
+    }
+    .profile-card {
+        background: #fff;
+        border-radius: 0 0 1rem 1rem;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        padding: 2rem;
+    }
+    .nav-tabs .nav-link {
+        color: #19a974;
+        font-weight: 600;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #19a974;
+        color: white;
+        border-radius: 8px 8px 0 0;
+    }
+    .form-label {
+        font-weight: 600;
+        color: #374151;
+    }
+</style>
+
+<div class="container profile-wrapper">
+    <div class="profile-header">
+        <h2>My Profile</h2>
+        <p class="mb-0">Manage your personal information</p>
+    </div>
+
+    <div class="profile-card">
+        <form method="post" action="{% url 'edit_profile' %}">
+            {% csrf_token %}
+
+            <!-- Tabs -->
+            <ul class="nav nav-tabs mb-3" id="profileTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab">Basic Info</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button" role="tab">Links</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="experience-tab" data-bs-toggle="tab" data-bs-target="#experience" type="button" role="tab">Experience</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab">Skills</button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Basic Info -->
+                <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        {{ form.gender }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        {{ form.location }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Birthday</label>
+                        {{ form.birthday }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Summary</label>
+                        {{ form.summary }}
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="tab-pane fade" id="links" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Website</label>
+                        {{ form.website }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">GitHub</label>
+                        {{ form.github }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">LinkedIn</label>
+                        {{ form.linkedin }}
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="tab-pane fade" id="experience" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Work</label>
+                        {{ form.work }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Education</label>
+                        {{ form.education }}
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="tab-pane fade" id="skills" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Technical Skills</label>
+                        {{ form.skills }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-4 py-2" style="border-radius:14px;">
+                    Save & Go to Main Page
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
