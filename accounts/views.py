@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .forms import ProfileForm
+from .services.jobs_api import search_jobs   # keep if you use jobs API
 
 def login_view(request):
     if request.method == 'POST':
@@ -17,7 +18,7 @@ def login_view(request):
             messages.success(request, 'Logged in successfully.')
             return redirect('home')
         messages.error(request, 'Invalid username or password.')
-    return render(request, 'accounts/login.html')   # ✅ matches template
+    return render(request, 'accounts/login.html')
 
 def logout_view(request):
     logout(request)
@@ -38,38 +39,35 @@ def signup_view(request):
         Profile.objects.create(user=user)
         messages.success(request, 'Account created! Please login.')
         return redirect('login')
-    return render(request, 'accounts/signup.html')   # ✅ matches template
+    return render(request, 'accounts/signup.html')
+
+@login_required
+def home_view(request):
+    return render(request, 'accounts/home.html')
 
 @login_required
 def profile_view(request):
     profile, _ = Profile.objects.get_or_create(user=request.user)
     return render(request, 'accounts/profile.html', {'profile': profile})
 
-
-@login_required
-def home_view(request):
-    return render(request, 'accounts/home.html')   # ✅ jobs removed for now
-
 @login_required
 def edit_profile(request):
-    # get or create profile for logged-in user
-    profile, created = Profile.objects.get_or_create(user=request.user)
-
+    profile, _ = Profile.objects.get_or_create(user=request.user)
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect("mainpage")   # ✅ after saving, go to main page
+            return redirect("mainpage")
     else:
-        form = ProfileForm(instance=profile)  # ✅ pre-populate with saved data
-
+        form = ProfileForm(instance=profile)
     return render(request, "accounts/profile.html", {"form": form})
-
-
 
 @login_required
 def mainpage_view(request):
-    return render(request, 'accounts/mainpage.html')
+    query = request.GET.get("q", "").strip()
+    data = search_jobs(query) if query else search_jobs("")
+    jobs = data.get("results", [])
+    return render(request, "accounts/mainpage.html", {"jobs": jobs, "query": query})
 
 @login_required
 def resumebuilder_view(request):
@@ -82,16 +80,3 @@ def messages_view(request):
 @login_required
 def achievements_view(request):
     return render(request, 'accounts/achievements.html')
-
-from .services.jobs_api import search_jobs
-
-def mainpage_view(request):
-    query = request.GET.get("q", "").strip()
-    if query:
-        # Domain-based jobs when searching
-        data = search_jobs(query)
-    else:
-        # Latest jobs when no search
-        data = search_jobs("")
-    jobs = data.get("results", [])
-    return render(request, "accounts/mainpage.html", {"jobs": jobs, "query": query})
