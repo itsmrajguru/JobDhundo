@@ -4,12 +4,20 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'unsafe-default-for-local-only'
-DEBUG = True
-ALLOWED_HOSTS = []
 
-# Added ALLOWED_HOSTS for deployment on Render.com
-ALLOWED_HOSTS = ['JobDhundo.onrender.com']
+# added secret key for deployment
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-default-for-local-only')
+
+# added debug for deployment
+DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
+
+# added allowed hosts for deployment
+ALLOWED_HOSTS = ['.onrender.com']
+
+
+# added CSRF Trusted Origins
+CSRF_TRUSTED_ORIGINS = ['https://jobdhundo.onrender.com']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -52,14 +60,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'JobDhundo.wsgi.application'
 
 
-
+# added PosteGree-Sql database for deployment
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
-AUTH_PASSWORD_VALIDATORS = []
+
+
+# added auth_password_validators for deployment
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
+
+
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -72,6 +88,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Whitenoise configuration for static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 
 MEDIA_URL = '/media/'
