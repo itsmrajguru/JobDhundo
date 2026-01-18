@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Jobs | JobDhundo{% endblock %}
+
+{% block content %}
+<style>
+  .jobs-header {
+    background: linear-gradient(135deg, #e8f5ef, #ffffff);
+    padding: 2.5rem 1rem;
+  }
+
+  .square-card {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .square-card .card-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+  }
+
+  .square-card .card-footer {
+    flex-shrink: 0;
+    padding: 0.75rem;
+    background: #fff;
+  }
+
+  .square-card .card-body::-webkit-scrollbar { width: 4px; }
+  .square-card .card-body::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 10px;
+  }
+</style>
+
+<!-- ================= HEADER ================= -->
+<section class="jobs-header text-center">
+  <div class="container">
+    <h2 class="fw-bold">Find Jobs That Match Your Skills</h2>
+    <p class="text-muted mt-2">
+      Browse all available jobs and apply with confidence
+    </p>
+
+    <!-- Search -->
+    <form method="get" class="row justify-content-center mt-4 g-2">
+      <div class="col-12 col-md-5">
+        <input
+          type="text"
+          name="q"
+          value="{{ query }}"
+          class="form-control"
+          placeholder="Search by role, skill, or company">
+      </div>
+      <div class="col-12 col-md-2">
+        <button type="submit" class="btn btn-success w-100">
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= JOB LIST ================= -->
+<section class="container my-4">
+
+  {% if query %}
+    <h5 class="fw-bold mb-4">Results for "{{ query }}"</h5>
+  {% else %}
+    <h5 class="fw-bold mb-4">All Jobs</h5>
+  {% endif %}
+
+  <div class="row g-4">
+
+    {% for job in jobs %}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card square-card shadow-sm">
+
+          <div class="card-body">
+            <h6 class="fw-bold mb-1">{{ job.title }}</h6>
+            <small class="text-muted">
+              {{ job.company.display_name }} – {{ job.location.display_name }}
+            </small>
+
+            <div class="mt-2">
+              <span class="badge bg-success">
+                ₹{{ job.salary_min|default:"-" }} – ₹{{ job.salary_max|default:"-" }}
+              </span>
+              <span class="badge bg-primary">
+                {{ job.contract_time|default:"NA"|title }}
+              </span>
+            </div>
+
+            <p class="small text-muted mt-2">
+              {{ job.description|truncatewords:40 }}…
+            </p>
+          </div>
+
+          <div class="card-footer">
+            <a href="{{ job.redirect_url }}"
+               target="_blank"
+               class="btn btn-success btn-sm w-100 rounded-pill">
+              Apply
+            </a>
+          </div>
+
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center text-muted">No jobs found.</p>
+    {% endfor %}
+
+  </div>
+</section>
+{% endblock %}

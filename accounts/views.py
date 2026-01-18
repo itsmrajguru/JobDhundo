@@ -69,7 +69,7 @@ def mainpage_view(request):
 
     # ✅ Call Adzuna jobs API (via your service wrapper)
     data = search_jobs(query) if query else search_jobs("")
-    jobs = data.get("results", [])
+    jobs = data.get("results", [])[:4]
 
     # ✅ Pass query into template so heading can switch
     return render(
@@ -90,5 +90,19 @@ def messages_view(request):
     return render(request, 'accounts/messages.html')
 
 @login_required
-def achievements_view(request):
-    return render(request, 'accounts/achievements.html')
+def jobs(request):
+    # get search query from GET params
+    query = request.GET.get("q", "").strip()
+
+    # call Adzuna jobs API (same logic as main page)
+    data = search_jobs(query) if query else search_jobs("")
+    jobs = data.get("results", [])
+
+    return render(
+        request,
+        "accounts/jobs.html",
+        {
+            "jobs": jobs,
+            "query": query,
+        }
+    )

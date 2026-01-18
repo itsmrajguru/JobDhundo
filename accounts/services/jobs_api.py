@@ -12,7 +12,7 @@ def search_jobs(query):
     params = {
         "app_id": app_id,
         "app_key": app_key,
-        "results_per_page": 10,
+        "results_per_page": 100,
         "what": query,
     }
     response = requests.get(url, params=params)

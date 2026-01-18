@@ -62,6 +62,9 @@
       .hero h1 { font-size: 1.5rem; }
       .hero p { font-size: 0.9rem; }
     }
+    /*For search jobs buttton*/
+    
+
   </style>
 </head>
 <body>
@@ -84,10 +87,11 @@
     <!-- Navigation links -->
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto align-items-lg-center">
-        <li class="nav-item"><a class="nav-link" href="#">Jobs</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Resume</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Messages</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Achievements</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'jobs' %}">Jobs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'resumebuilder' %}">Resume</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">🔔</a></li>
 
         <!-- Navbar search form (hidden initially) -->
         <li class="nav-item d-none" id="navbarSearchForm">
@@ -116,11 +120,22 @@
     <p class="text-muted mt-3">
       Search verified jobs, track applications, and build your resume — all in one place.
     </p>
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-outline-success btn-lg rounded-pill px-4" onclick="showNavbarSearch()">
-        Search Jobs
-      </button>
-    </div>
+
+<form method="get" action="">
+  <div class="search-box">
+    <input
+      type="text"
+      name="q"
+      placeholder="Job title, skill or company"
+      class="search-input"
+      value="{{ request.GET.q }}"
+    />
+    <button class="search-btn" type="submit">Search</button>
+  </div>
+</form>
+
+
+
   </div>
 </section>
 
@@ -160,36 +175,12 @@
   </div>
 </section>
 
-<!-- ================= PROGRESS SECTION ================= -->
-<section class="container my-5">
-  <h4 class="fw-bold mb-3">Your Job Hunt Progress</h4>
-  <div class="row g-3">
-    <div class="col-12 col-md-4">
-      <div class="card text-center shadow-sm h-100">
-        <div class="card-body">
-          <h6>Profile Completed</h6>
-          <h3 class="text-success">80%</h3>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-4">
-      <div class="card text-center shadow-sm h-100">
-        <div class="card-body">
-          <h6>Jobs Applied</h6>
-          <h3 class="text-success">12</h3>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-4">
-      <div class="card text-center shadow-sm h-100">
-        <div class="card-body">
-          <h6>Interview Calls</h6>
-          <h3 class="text-success">2</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="text-center mt-4">
+  <a href="{% url 'jobs' %}" class="btn btn-outline-success rounded-pill px-4">
+    View all jobs →
+  </a>
+</div>
+
 
 <!-- ================= FOOTER ================= -->
 <footer class="bg-white border-top py-3 mt-auto">
@@ -199,27 +190,25 @@
 </footer> 
 
 <script>
-function showNavbarSearch() {
-  const isMobile = window.innerWidth <= 576;
-  const searchButton = document.querySelector('.hero button');
-  const navbarSearchForm = document.getElementById('navbarSearchForm');
+function toggleSearch() {
+  const container = document.getElementById("searchActionArea");
 
-  if (isMobile) {
-    // Mobile UI: Replace the Search Jobs button with the search bar
-    const searchBarHTML = `
-      <form action="{% url 'mainpage' %}" method="get" class="d-flex mt-3 w-100" role="search">
-        <label for="searchInputMobile" class="visually-hidden">Search jobs</label>
-        <input id="searchInputMobile" type="text" name="q" class="form-control form-control-sm" placeholder="Search jobs...">
-        <button type="submit" class="btn btn-success btn-sm ms-1 px-3">Go</button>
-      </form>
-    `;
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = searchBarHTML;
-    searchButton.parentNode.replaceChild(wrapper, searchButton);
-  } else {
-    // PC UI: Show the navbar search bar between Achievements and Profile
-    navbarSearchForm.classList.remove('d-none');
-  }
+  container.innerHTML = `
+    <form action="{% url 'mainpage' %}" method="get" 
+          class="d-flex justify-content-center gap-2 mt-2">
+      <input
+        type="text"
+        name="q"
+        class="form-control form-control-lg w-50"
+        placeholder="Search jobs by title, skill..."
+        required
+        autofocus
+      >
+      <button type="submit" class="btn btn-success btn-lg px-4">
+        Go
+      </button>
+    </form>
+  `;
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
