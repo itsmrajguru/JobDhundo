@@ -104,22 +104,19 @@
 </section>
 
 <!-- ================= JOBS SECTION ================= -->
-<section class="container">
+<section class="container my-4">
   {% if query %}
     <h4 class="fw-bold mb-4">Results for "{{ query }}"</h4>
   {% else %}
     <h4 class="fw-bold mb-4">🔥 Trending Jobs</h4>
   {% endif %}
-  <div class="row g-4 justify-content-center" id="jobCardsContainer">
+  <div class="row g-4" id="jobCardsContainer">
     {% for job in jobs %}
-      <div class="col-md-3 col-sm-6">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card square-card shadow-sm h-100">
           <div class="card-body">
-            <!-- Job title -->
             <h6 class="card-title text-dark fw-bold mb-1">{{ job.title }}</h6>
-            <!-- Company and location -->
             <small>{{ job.company.display_name }} – {{ job.location.display_name }}</small>
-            <!-- Salary and contract -->
             <p class="mb-1">
               <span class="badge bg-success">
                 ₹{{ job.salary_min|default:"-" }} – ₹{{ job.salary_max|default:"-" }}
@@ -128,10 +125,8 @@
                 {{ job.contract_time|default:"NA"|title }}
               </span>
             </p>
-            <!-- Short description -->
-            <small class="text-muted mt-2">{{ job.description|truncatewords:100 }}…</small>
+            <small class="text-muted mt-2">{{ job.description|truncatewords:30 }}…</small>
           </div>
-          <!-- Apply button -->
           <div class="card-footer bg-white">
             <a href="{{ job.redirect_url }}" target="_blank"
               class="btn btn-success btn-sm w-100 rounded-pill text-white">Apply</a>
