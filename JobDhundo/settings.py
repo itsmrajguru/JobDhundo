@@ -14,7 +14,6 @@ DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 # added allowed hosts for deployment
 ALLOWED_HOSTS = ['.onrender.com']
 
-
 # added CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = ['https://jobdhundo.onrender.com']
 

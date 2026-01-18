@@ -64,10 +64,22 @@ def edit_profile(request):
 
 @login_required
 def mainpage_view(request):
+    # ✅ Get search query from GET params
     query = request.GET.get("q", "").strip()
+
+    # ✅ Call Adzuna jobs API (via your service wrapper)
     data = search_jobs(query) if query else search_jobs("")
     jobs = data.get("results", [])
-    return render(request, "accounts/mainpage.html", {"jobs": jobs, "query": query})
+
+    # ✅ Pass query into template so heading can switch
+    return render(
+        request,
+        "accounts/mainpage.html",
+        {
+            "jobs": jobs,
+            "query": query,   # used in template to show "Results for ..."
+        }
+    )
 
 @login_required
 def resumebuilder_view(request):

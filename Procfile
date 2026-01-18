@@ -1,1 +1,1 @@
-web: gunicorn JobDhundo.wsgi
+web: gunicorn JobDhundo.wsgi:application
